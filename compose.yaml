@@ -1,0 +1,45 @@
+services:
+  postgres-db:
+    image: postgres
+    restart: unless-stopped
+    # set shared memory limit when using docker-compose
+    shm_size: 128mb
+    # or set shared memory limit when deploy via swarm stack
+    #volumes:
+    #  - type: tmpfs
+    #    target: /dev/shm
+    #    tmpfs:
+    #      size: 134217728 # 128*2^20 bytes = 128Mb
+    environment:
+      POSTGRES_USER: book
+      POSTGRES_PASSWORD: example
+      PGDDATA: /var/lib/postgresql/data # Folder store data
+      POSTGRES_DB : open-db
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - 5432:5432
+    networks:
+      - spring-network
+
+
+  mail-server:
+    container_name: mail-server
+    image: maildev/maildev
+    ports:
+      - 1080:1080
+      - 1025:1025
+
+
+  # adminer:
+  #   image: adminer
+  #   restart: always
+  #   ports:
+  #     - 8080:8080
+
+volumes:
+  postgres:
+      driver: local
+networks:
+  spring-network:
+    driver: bridge
