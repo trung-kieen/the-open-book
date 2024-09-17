@@ -1,0 +1,38 @@
+
+spring:
+  # datasource:
+  #   url: jdbc:postgresql://localhost:5432/open-db
+  #   username: appuser
+  #   password: verysecret
+
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/open-db
+    username: appuser
+    password: verysecret
+    driverClassName: org.postgresql.Driver
+
+  # jpa:
+  #   hibernate:
+  #     ddl-auto: update
+  #     show-sql: true
+  #     prorperties:
+  #       hibernate:
+  #         format-sql: true
+  #       database: postgresql
+  #       database-platform: org.hibernate.dialect.PostgreSLDialect
+  # mail:
+  #   host: localhost
+  #   port: 1025
+  #   username: appuser
+  #   password: verysecret
+  #   prorperties:
+  #     mail:
+  #       smtp:
+  #         trust: "*"
+  #       auth: true
+  #       starttls:
+  #         enable: true
+  #       connecitontimout: 5000
+  #       timeout: 3000
+  #       writetimeout: 5000
