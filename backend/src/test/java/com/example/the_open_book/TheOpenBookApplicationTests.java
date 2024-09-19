@@ -9,5 +9,5 @@ class TheOpenBookApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
+  // TODO: test init role for application
 }

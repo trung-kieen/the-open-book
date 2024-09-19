@@ -2,6 +2,7 @@ package com.example.the_open_book.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,10 +23,12 @@ import lombok.RequiredArgsConstructor;
 public class SecurityConfiguration {
 
 
+  private final AuthenticationProvider authenticationProvider;
   private final JwtTokenAuthenticationFilter jwtTokenAuthenticationFilter;
 
   private static final String[] AUTH_WHITELIST = {
       // -- Swagger UI v2
+      "**.html",
       "/v2/api-docs",
       "v2/api-docs",
       "/swagger-resources",
@@ -67,8 +70,7 @@ public class SecurityConfiguration {
          * attack when we disable csrf
          */
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        // TODO: wire bean
-        // .authenticationProvider(authenticationProvider)
+        .authenticationProvider(authenticationProvider)
         .addFilterBefore(jwtTokenAuthenticationFilter,
             UsernamePasswordAuthenticationFilter.class)
 

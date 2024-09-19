@@ -28,18 +28,18 @@ spring:
       org.hibernate: debug
 
 
-  # mail:
-  #   host: localhost
-  #   port: 1025
-  #   username: appuser
-  #   password: verysecret
-  #   prorperties:
-  #     mail:
-  #       smtp:
-  #         trust: "*"
-  #       auth: true
-  #       starttls:
-  #         enable: true
-  #       connecitontimout: 5000
-  #       timeout: 3000
-  #       writetimeout: 5000
+  mail:
+    host: localhost
+    port: 1025
+    username: appuser
+    password: verysecret
+    prorperties:
+      mail:
+        smtp:
+          trust: "*"
+        auth: true
+        starttls:
+          enable: true
+        connecitontimout: 5000
+        timeout: 3000
+        writetimeout: 5000

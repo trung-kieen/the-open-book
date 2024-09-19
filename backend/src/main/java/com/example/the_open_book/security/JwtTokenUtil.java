@@ -25,7 +25,7 @@ import io.jsonwebtoken.security.Keys;
 public class JwtTokenUtil {
 
   // TODO: use application properties
-  private static final long jwtTokenExpMillis = 0;
+  private static final long jwtTokenExpMillis = 900000; // 15 minuts
   private CharSequence secretKey;
 
   /**

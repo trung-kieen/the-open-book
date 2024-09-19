@@ -68,7 +68,6 @@ public class User implements UserDetails, Principal {
   // @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
   // private List<Token> tokens;
 
-  // TODO: unique
   @NotBlank
   @Column(name = "email", nullable = false, unique = true, length = 100)
   @Email
@@ -77,7 +76,7 @@ public class User implements UserDetails, Principal {
   @Column(name = "account_locked", columnDefinition = "boolean default false")
   private Boolean accountLocked;
 
-  /*
+  /**
    * User need to verified email to enable account
    */
   @Column(name = "enabled", columnDefinition = "boolean default false")

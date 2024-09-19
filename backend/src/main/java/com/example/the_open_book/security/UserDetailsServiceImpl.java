@@ -26,10 +26,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
       throw new UsernameNotFoundException("email is not valid");
     });
     return user;
-
-    // TODO Auto-generated method stub
-    // throw new UnsupportedOperationException("Unimplemented method
-    // 'loadUserByUsername'");
   }
 
 }

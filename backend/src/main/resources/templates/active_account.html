@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Account Creation Confirmation</title>
+</head>
+
+<body>
+  <p>We have created an account for you with the following information: <br />
+    Email: <strong><a th:href="mailto:${userEmail}" target="_blank" th:text="${userEmail}"></a></strong> <br />
+    If you want to sign in with this account, please click the confirmation button within
+    <span th:text="${expireMinutes}">0</span> minutes. <br />
+
+
+    <span th:text="${code}">0</span> minutes. <br />
+    <strong><a th:href="${confirmationUrl}" target="_blank" th:text="Active with link"></a></strong><br />
+
+    If you did not register for this event, please ignore this email.
+  </p>
+</body>
+
+</html>
