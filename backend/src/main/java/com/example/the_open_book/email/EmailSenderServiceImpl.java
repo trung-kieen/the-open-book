@@ -26,7 +26,7 @@ public class EmailSenderServiceImpl implements EmailSenderService {
   private final JavaMailSender javaMailSender;
   private final SpringTemplateEngine templateEngine;
   // TODO
-  private int expireActivationMinutes = 15 ;
+  private int expireActivationMinutes = 15;
 
   /**
    * @param to       email target send to
@@ -65,16 +65,15 @@ public class EmailSenderServiceImpl implements EmailSenderService {
 
   public void sendActivationAccount(String email, String code, String confirmationUrl) {
     Context context = new Context();
-    context.setVariable("email", email);
     context.setVariable("code", code);
     context.setVariable("expireMinutes", expireActivationMinutes);
-
-    // TODO: builder url
+    // // TODO: builder url
     context.setVariable("confirmationUrl", confirmationUrl);
+
     // TODO change this
     final String from = "hellokitty@duck.com";
     try {
-      sendEmail(from, email, "Activation your account", ThymeleafTemplate.ACTIVE_ACCOUNT, context);
+      sendEmail(from, email, ThymeleafTemplate.ACTIVE_ACCOUNT.getEmailSubject(), ThymeleafTemplate.ACTIVE_ACCOUNT, context);
     } catch (Exception ex) {
       throw new ApplicationException(ex.getMessage());
     }

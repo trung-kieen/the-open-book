@@ -11,7 +11,3 @@ servelet:
     max-file-size: 50MB
 springdoc:
   default-produces-media-type: application/json
-
-server:
-  servelet:
-    context-path: /api/v1/

@@ -7,12 +7,14 @@ import lombok.Getter;
  */
 @Getter
 public enum ThymeleafTemplate {
-  ACTIVE_ACCOUNT("active_account");
+  ACTIVE_ACCOUNT("active_account", "Activation your account");
 
   private String templateFileHtml;
+  private String emailSubject;
 
-  ThymeleafTemplate(String fileName) {
+  ThymeleafTemplate(String fileName, String emailSubject) {
     this.templateFileHtml = fileName;
+    this.emailSubject = emailSubject;
   }
 
 }

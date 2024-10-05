@@ -4,9 +4,7 @@ package com.example.the_open_book.exception;
  * ApplicationException
  */
 public class ApplicationException extends RuntimeException {
-    public ApplicationException() {
-        super();
-    }
+
     public ApplicationException(String message, Throwable cause) {
         super(message, cause);
     }
@@ -18,6 +16,8 @@ public class ApplicationException extends RuntimeException {
         super(cause);
     }
 
+    public ApplicationException() {
+    }
 
 
 }
