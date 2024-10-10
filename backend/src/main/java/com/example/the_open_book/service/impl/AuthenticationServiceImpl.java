@@ -15,8 +15,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.the_open_book.email.EmailSenderService;
 import com.example.the_open_book.exception.ApplicationException;
-import com.example.the_open_book.exception.BusinnesException;
-import com.example.the_open_book.exception.ErrorMessage;
 import com.example.the_open_book.payload.request.AuthenticationRequest;
 import com.example.the_open_book.payload.request.RegisterDTO;
 import com.example.the_open_book.payload.response.AuthenticationResponse;
@@ -84,7 +82,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     logger.info("loger before user role accesstor");
     var userRole = roleRepository.findByName(RoleName.ROLE_USER)
         // .orElseThrow(() -> new StaticResourceNotDefinedException("Not found role ", registerDTO));
-        .orElseThrow(() -> new BusinnesException(ErrorMessage.STATIC_RESOURCE_NOT_INITIALIZE ,registerDTO ));
+        .orElseThrow(() -> new ApplicationException("Role is not initialize"));
 
     // Creat user and save to database without enable
     var registerUser = User.builder()
@@ -163,14 +161,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
   @Override
   public void validateToken(String token) throws ApplicationException {
     var tokenEntity = tokenService.findByToken(token)
-        .orElseThrow(() -> new BusinnesException(ErrorMessage.INVALID_TOKEN));
+        .orElseThrow(() -> new ApplicationException("Invalid token"));
 
     final boolean isTokenExpired = LocalDateTime.now().isAfter(tokenEntity.getExpiredAt());
     if (isTokenExpired) {
       // Resend token email activation
       sendVerifiedEmail(tokenEntity.getUser());
       // throw new BadUserRequestException("Activation email is expired please recheck email for new activation code");
-      throw new BusinnesException(ErrorMessage.TOKEN_EXPIRE_RESEND_EMAIL);
+      throw new ApplicationException("Token is expired we have send you a new one");
     }
     tokenEntity.setValidatedAt(LocalDateTime.now());
     tokenEntity.getUser().setEnabled(true);

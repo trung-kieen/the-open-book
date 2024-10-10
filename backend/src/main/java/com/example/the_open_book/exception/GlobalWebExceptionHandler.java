@@ -1,8 +1,8 @@
 package com.example.the_open_book.exception;
 
-import java.util.HashMap;
 import java.util.HashSet;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -10,11 +10,7 @@ import org.springframework.security.authentication.LockedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.thymeleaf.standard.expression.MessageExpression;
 
-import com.example.the_open_book.payload.ResponseResult;
-
-import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
 import lombok.extern.log4j.Log4j2;
 
@@ -26,55 +22,87 @@ import lombok.extern.log4j.Log4j2;
 public class GlobalWebExceptionHandler {
 
   @ExceptionHandler(LockedException.class)
-  public ResponseEntity<?> handleLockedUserException(LockedException ex ){
-    return ResponseResult.error(ErrorMessage.ACCOUNT_LOCKED).toResponseEntity();
+  public ResponseEntity<?> handleLockedUserException(LockedException ex){
+    var errBusiness  = BusinessError.ACCOUNT_LOCKED;
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+    .body(ErrorResponse.builder()
+      .bussinessDescriptionCode(errBusiness.getDescription())
+      .businessErrorCode(errBusiness.getCode())
+      .errorMessage(ex.getMessage())
+      .build());
   }
 
   @ExceptionHandler(DisabledException.class)
-  public ResponseEntity<?> handleDisabledUserException(DisabledException ex ){
-    return ResponseResult.error(ErrorMessage.ACCOUNT_DISABLE).toResponseEntity();
+  public ResponseEntity<?> handleDisabledUserException(DisabledException  ex){
+    var errBusiness  = BusinessError.ACCOUNT_DISABLED;
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+    .body(ErrorResponse.builder()
+      .bussinessDescriptionCode(errBusiness.getDescription())
+      .businessErrorCode(errBusiness.getCode())
+      .errorMessage(ex.getMessage())
+      .build());
   }
+
+
+
 
   @ExceptionHandler(BadCredentialsException.class)
-  public ResponseEntity<?> handleBadCredentialsUserException(BadCredentialsException ex ){
-    return ResponseResult.error(ErrorMessage.INVALID_LOGIN_CREDENTIAL).toResponseEntity();
+  public ResponseEntity<?> handleBadCredential(BadCredentialsException ex){
+    var errBusiness  = BusinessError.BAD_CREDENTIAL;
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+    .body(ErrorResponse.builder()
+      .bussinessDescriptionCode(errBusiness.getDescription())
+      .businessErrorCode(errBusiness.getCode())
+      .errorMessage(ex.getMessage())
+      .build());
   }
 
+
   /**
-   * Handle exception while sending email to user
+   * Handle email service sending mail exception
    */
   @ExceptionHandler(MessagingException.class)
-  public ResponseEntity<?> handleEmailMessageSendingException(MessagingException ex ){
-    var rs = ResponseResult.error(ErrorMessage.EMAIL_MESSAGING_NOT_SEND , ex.getMessage()).toResponseEntity();
-    return rs;
+  public ResponseEntity <?> handleEmailSendingException(MessagingException ex){
+
+    // var errBusiness = BusinessError.
+    var err = ErrorResponse.builder()
+    .errorMessage(ex.getMessage())
+    .build();
+    return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+    .body(err);
   }
 
-
-  /**
-   * Handle for request not due to spring-validation constraint
-   * Any payload request that use @Valid might raise this error
-   */
   @ExceptionHandler(MethodArgumentNotValidException.class)
-  public ResponseEntity<?> handleNotValidArgumentException(MethodArgumentNotValidException ex ){
-    var errors =  new HashSet<>();
-    ex.getFieldErrors().forEach(error -> {
-      errors.add(error.getDefaultMessage());
-    });
-    var rs = ResponseResult.error(ErrorMessage.EMAIL_MESSAGING_NOT_SEND);
-    rs.setValidationError(errors);
-    return rs.toResponseEntity();
-  }
+  public ResponseEntity<?> handleInvalidPayload(MethodArgumentNotValidException ex){
+    var validationErrors =  new HashSet<String>();
+    ex.getFieldErrors().stream().forEach(
+      e -> {
+        validationErrors.add(e.getField()  + ": " + e.getDefaultMessage());
+      }
+    );
 
-  @ExceptionHandler(ApplicationException.class)
-  public ResponseEntity<?> otherApplicaitonException(ApplicationException ex ){
-    var rs = ResponseResult.error(ErrorMessage.APPLICATION_ERROR);
-    log.info("Application error {}" , ex.getMessage());
-    return rs.toResponseEntity();
+    var err = ErrorResponse.builder()
+    .validationErrors(validationErrors)
+    .build();
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+    .body(err);
+
   }
 
   @ExceptionHandler(Exception.class)
-  public ResponseEntity<?> unknowException(Exception ex ){
-    var rs = ResponseResult.error(ErrorMessage.UNKNOW);
-    return rs.toResponseEntity();
+  public ResponseEntity<?> unhandleException(Exception ex ){
+    log.info("Unhandle error of class : {}" , ex.getClass().getName());
+    log.info("Unhandle error message: {}" , ex.getMessage());
+    // ex.printStackTrace();
+
+    var err = ErrorResponse.builder()
+    .errorMessage("Internal application error")
+    .build();
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+    .body(err);
+
+
   }
+
+
 }

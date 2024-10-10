@@ -57,6 +57,7 @@ public class AuthenticationController {
   public void activateAccount(@RequestParam(value = "code" , required = true ) String code){
     authenticationService.activateAccount(code);
     // TODO: forward request to other page in client request instead of blank page
+
   }
 
 }

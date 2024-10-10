@@ -2,8 +2,6 @@ package com.example.the_open_book.token;
 
 import java.util.Optional;
 
-import com.example.the_open_book.user.User;
-
 /**
  * tokenService
  */
