@@ -3,6 +3,7 @@ package com.example.the_open_book.user;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -13,10 +14,14 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.example.the_open_book.book.Book;
+import com.example.the_open_book.feedback.Feedback;
 import com.example.the_open_book.role.Role;
 import com.example.the_open_book.token.Token;
+import com.example.the_open_book.token.history_transaction.TransactionHistory;
 
 import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -27,6 +32,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -55,7 +61,7 @@ import lombok.ToString;
  * Class implement Userdetail for authetication and principal for get object in
  * security context holder
  */
-public class User implements UserDetails, Principal {
+public class User implements UserDetails, Principal   {
   @Id
   @Column(name = "user_id", nullable = false)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -105,6 +111,18 @@ public class User implements UserDetails, Principal {
   @LastModifiedDate
   @Column(name = "last_update")
   private LocalDateTime lastUpdate; // or lastModifiedDate
+
+
+  @OneToMany(mappedBy = "user" )
+  private ArrayList<TransactionHistory> histories;
+
+
+  @OneToMany( mappedBy = "owner" ,  cascade = { CascadeType.PERSIST  })
+  private List<Book> books;
+
+
+  @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+  private List<Feedback> feedbacks;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -47,15 +47,6 @@ spring:
         connecitontimout: 5000
         timeout: 3000
         writetimeout: 5000
-  management:
-    httpexchanges:
-      recording:
-        enabled: true
-    endpoints:
-      web:
-        exposure:
-          include: beans,health,info,metrics
-
 
 
 
