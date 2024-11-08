@@ -2,10 +2,9 @@
 package com.example.the_open_book.book;
 
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.example.the_open_book.common.AbstractAuditEntity;
-import com.example.the_open_book.common.BaseEntity;
 import com.example.the_open_book.token.history_transaction.TransactionHistory;
 import com.example.the_open_book.user.User;
 
@@ -58,7 +57,7 @@ public class Book extends AbstractAuditEntity{
 
 
   @OneToMany(mappedBy = "book")
-  private ArrayList<TransactionHistory> histories;
+  private List<TransactionHistory> histories;
 
 
   @ManyToOne

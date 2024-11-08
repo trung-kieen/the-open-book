@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class EmailSenderServiceImpl implements EmailSenderService {
   private final JavaMailSender javaMailSender;
   private final SpringTemplateEngine templateEngine;
-  // TODO
+  // TODO: use value from property
   private int expireActivationMinutes = 15;
 
   /**

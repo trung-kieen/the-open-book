@@ -37,7 +37,7 @@ public class AuthenticationController {
   // TODO: Add @Valid
   public ResponseEntity<?> register(@Valid @RequestBody RegisterDTO registerDTO) throws Exception {
     authenticationService.register(registerDTO);
-    return ResponseEntity.accepted().build();
+    return ResponseEntity.ok().body("Register success checkout email for activate");
 
   }
   @ResponseStatus(HttpStatus.OK)

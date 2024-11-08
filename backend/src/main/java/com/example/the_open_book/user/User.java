@@ -3,7 +3,6 @@ package com.example.the_open_book.user;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -32,7 +31,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -114,7 +112,7 @@ public class User implements UserDetails, Principal   {
 
 
   @OneToMany(mappedBy = "user" )
-  private ArrayList<TransactionHistory> histories;
+  private List<TransactionHistory> histories;
 
 
   @OneToMany( mappedBy = "owner" ,  cascade = { CascadeType.PERSIST  })
