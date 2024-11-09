@@ -72,6 +72,19 @@ public class GlobalWebExceptionHandler {
     .body(err);
   }
 
+
+  @ExceptionHandler(ResourceNotFoundExceeption.class)
+  public ResponseEntity <?> resourceNotFoundException(MessagingException ex){
+
+    // var errBusiness = BusinessError.
+    var err = ErrorResponse.builder()
+    .errorMessage(ex.getMessage())
+    .build();
+    return ResponseEntity.status(HttpStatus.NOT_FOUND)
+    .body(err);
+  }
+
+
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseEntity<?> handleInvalidPayload(MethodArgumentNotValidException ex){
     var validationErrors =  new HashSet<String>();

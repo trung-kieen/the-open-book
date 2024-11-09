@@ -1,5 +1,6 @@
 package com.example.the_open_book.feedback;
 
+import com.example.the_open_book.book.Book;
 import com.example.the_open_book.common.BaseEntity;
 import com.example.the_open_book.user.User;
 
@@ -10,11 +11,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -48,4 +47,8 @@ public class Feedback extends BaseEntity {
   @JoinColumn(name = "user_id")
   private User user;
 
+
+  @ManyToOne
+  @JoinColumn(name = "book_id")
+  private Book book;
 }
