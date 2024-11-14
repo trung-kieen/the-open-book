@@ -1,6 +1,7 @@
 
 package com.example.the_open_book.book;
 
+import java.beans.Transient;
 import java.util.List;
 
 import com.example.the_open_book.common.AbstractAuditEntity;
@@ -65,6 +66,7 @@ public class Book extends AbstractAuditEntity {
   @OneToMany(mappedBy = "book")
   private List<Feedback> feedbacks;
 
+  @Transient
   public double getRate() {
     if (feedbacks == null || feedbacks.isEmpty()) {
       return 0.0d;
@@ -72,5 +74,13 @@ public class Book extends AbstractAuditEntity {
     var rate = feedbacks.stream().mapToDouble(Feedback::getNote).average().orElse(0.0);
     var roundedRate = (double) Math.round(rate * 10)/ 10;
     return roundedRate;
+
   }
+  public boolean getArchived(){
+    return archived;
+  }
+  public boolean getShareable(){
+    return shareable;
+  }
+
 }

@@ -29,11 +29,11 @@ private   String title;
 private   String authorName;
 private   String isbn;
 private   String synopsis;
-private   String bookCover;
+private   byte [] bookCover;
 private   boolean  archived;
 private   boolean  shareable;
 private   List<TransactionHistory> histories;
-private   User owner;
+private   String  owner;
 private Double rate;
 
 }

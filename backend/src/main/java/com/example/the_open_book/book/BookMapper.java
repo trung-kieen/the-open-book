@@ -30,7 +30,19 @@ public class BookMapper {
   }
 
   public BookResponse toBookResponse(Book book){
-    return modelMapper.map(book, BookResponse.class);
+    var bookres = new BookResponse();
+    bookres.setIsbn(book.getIsbn());
+    bookres.setBookId(book.getBookId());
+    bookres.setTitle(book.getTitle());
+    bookres.setAuthorName(book.getAuthorName());
+    bookres.setSynopsis(book.getSynopsis());
+    bookres.setArchived(book.getArchived());
+    bookres.setShareable(book.getShareable());
+    var owner  = book.getOwner();
+    bookres.setOwner(owner.getFullname());
+    // TODO
+    // bookres.setBookCover(book.getBookCover());
+    return bookres;
   }
 
 }
