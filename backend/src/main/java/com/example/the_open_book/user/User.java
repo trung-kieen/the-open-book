@@ -17,7 +17,7 @@ import com.example.the_open_book.book.Book;
 import com.example.the_open_book.feedback.Feedback;
 import com.example.the_open_book.role.Role;
 import com.example.the_open_book.token.Token;
-import com.example.the_open_book.token.history_transaction.TransactionHistory;
+import com.example.the_open_book.transaction.TransactionHistory;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;

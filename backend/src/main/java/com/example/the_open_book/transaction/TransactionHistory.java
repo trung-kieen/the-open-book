@@ -1,4 +1,4 @@
-package com.example.the_open_book.token.history_transaction;
+package com.example.the_open_book.transaction;
 
 import com.example.the_open_book.book.Book;
 import com.example.the_open_book.common.BaseEntity;
@@ -13,6 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
@@ -21,6 +22,7 @@ import lombok.experimental.SuperBuilder;
  * BookTransactionHistory
  */
 
+@Getter
 @Setter
 @SuperBuilder
 @AllArgsConstructor

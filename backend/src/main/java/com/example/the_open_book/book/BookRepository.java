@@ -26,4 +26,5 @@ public interface BookRepository extends JpaRepository<Book, Integer>, JpaSpecifi
       """)
   Page<Book> findPublicVisible(Pageable pageRequest, Long userId);
 
+
 }

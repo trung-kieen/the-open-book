@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.example.the_open_book.common.AbstractAuditEntity;
 import com.example.the_open_book.feedback.Feedback;
-import com.example.the_open_book.token.history_transaction.TransactionHistory;
+import com.example.the_open_book.transaction.TransactionHistory;
 import com.example.the_open_book.user.User;
 
 import jakarta.persistence.Column;

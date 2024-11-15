@@ -2,8 +2,7 @@ package com.example.the_open_book.payload.response;
 
 import java.util.List;
 
-import com.example.the_open_book.token.history_transaction.TransactionHistory;
-import com.example.the_open_book.user.User;
+import com.example.the_open_book.transaction.TransactionHistory;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,6 +33,7 @@ private   boolean  archived;
 private   boolean  shareable;
 private   List<TransactionHistory> histories;
 private   String  owner;
+
 private Double rate;
 
 }
